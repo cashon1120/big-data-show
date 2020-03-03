@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Wrapper from './Wrapper'
 import ReactEcharts from 'echarts-for-react'
 import axios from '../utils/request'
-import {apiUrl, duration} from '../config/index'
+import {apiUrl, duration, echartsConfig} from '../config/index'
 
 class Risk extends Component {
   constructor(props) {
@@ -10,12 +10,10 @@ class Risk extends Component {
     this.state = {
       firstLoad: true,
       data: {
-        date: {
-          data: [],
-          km: [],
-          warning: [],
-          risk: []
-        }
+        date: [],
+        km: [],
+        warning: [],
+        risk: []
       }
     }
   }
@@ -28,7 +26,12 @@ class Risk extends Component {
     axios
       .get(apiUrl.risk)
       .then(res => {
-        const data = {}
+        const data = {
+          date: [],
+          km: [],
+          warning: [],
+          risk: []
+        }
         res
           .data
           .data
@@ -38,13 +41,13 @@ class Risk extends Component {
               .push(item['日期'])
             data
               .km
-              .push(item['公里'])
+              .push(parseInt(item['公里数']))
             data
               .warning
-              .push(item['报警'])
+              .push(parseInt(item['报警次数']))
             data
               .risk
-              .push(item['风险系数'])
+              .push(parseInt(item['风险系数']))
           })
         this.setState({data, firstLoad: false})
         setTimeout(() => {
@@ -64,73 +67,60 @@ class Risk extends Component {
       tooltip: {
         trigger: 'axis'
       },
-      legend: {
-        data: [
-          '公里数', '报警次数', '风险系数'
-        ],
-        textStyle: {
-          color: '#189CBF',
-          fontSize: 12
-        }
-      },
+      // legend: {   data: [     '公里数', '报警次数', '风险系数'   ],   textStyle: {     color:
+      // '#189CBF',     fontSize: 12   } },
       grid: {
-        left: '2%',
-        right: '2%',
+        left: '1%',
+        right: '1%',
+        top: '10%',
         bottom: '28%',
         containLabel: true
       },
       xAxis: {
         axisLabel: {
-          textStyle: {
-            color: '#189CBF',
-            fontSize: 12
-          }
+          ...echartsConfig.axisLabel
         },
         axisLine: {
-          lineStyle: {
-            color: '#174e71',
-            width: 1
-          }
+          ...echartsConfig.axisLine
         },
         type: 'category',
         boundaryGap: false,
         data: data.date
       },
-      yAxis: {
-        type: 'value',
-        axisLabel: {
-          textStyle: {
-            color: '#189CBF',
-            fontSize: 12
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#174e71'
-          }
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#174e71',
-            width: 1
-          }
+      yAxis: [
+        {
+          type: 'value',
+          name: '公里数',
+          position: 'left',
+          nameTextStyle: echartsConfig.nameTextStyle,
+          axisLabel: echartsConfig.axisLabel,
+          splitLine: echartsConfig.splitLine,
+          axisLine: echartsConfig.axisLine
+        }, {
+          type: 'value',
+          name: '报警次数/风险系数',
+          position: 'right',
+          nameTextStyle: echartsConfig.nameTextStyle,
+          axisLabel:  echartsConfig.splitLine,
+          splitLine: echartsConfig.splitLine,
+          axisLine: echartsConfig.axisLine
         }
-      },
+      ],
       series: [
         {
           name: '公里数',
           type: 'line',
-          stack: '总量',
+          yAxisIndex: '0',
           data: data.km
         }, {
           name: '报警次数',
           type: 'line',
-          stack: '总量',
+          yAxisIndex: '1',
           data: data.warning
         }, {
           name: '风险系数',
           type: 'line',
-          stack: '总量',
+          yAxisIndex: '1',
           data: data.risk
         }
       ]

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactEcharts from 'echarts-for-react'
 import Wrapper from './Wrapper'
 import axios from '../utils/request'
-import {apiUrl, duration} from '../config/index'
+import {apiUrl, duration, echartsConfig} from '../config/index'
 
 class Speed extends Component {
   constructor(props) {
@@ -56,38 +56,14 @@ class Speed extends Component {
       },
       xAxis: {
         type: 'value',
-        axisLine: {
-          lineStyle: {
-            color: '#174e71',
-            width: 1
-          }
-        },
-        axisLabel: {
-          textStyle: {
-            color: '#189CBF',
-            fontSize: 14
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#174e71'
-          }
-        }
+        axisLine: echartsConfig.axisLine,
+        axisLabel: echartsConfig.axisLabel,
+        splitLine: echartsConfig.splitLine
       },
       yAxis: {
         type: 'category',
-        axisLine: {
-          lineStyle: {
-            color: '#174e71',
-            width: 1
-          }
-        },
-        axisLabel: {
-          textStyle: {
-            color: '#189CBF',
-            fontSize: 14
-          }
-        },
+        axisLine: echartsConfig.axisLine,
+        axisLabel: echartsConfig.axisLabel,
         data: ['>90', '60-90', '30-60', '0-30']
       },
       series: [

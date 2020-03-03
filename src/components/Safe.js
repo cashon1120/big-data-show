@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactEcharts from 'echarts-for-react'
 import axios from '../utils/request'
-import {apiUrl, duration} from '../config/index'
+import {apiUrl, duration, ECHARTS_FONT_SIZE} from '../config/index'
 
 import Wrapper from './Wrapper'
 
@@ -32,7 +32,6 @@ class Car extends Component {
         data.forEach((item, index) => {
           item.itemStyle = {
             color: this.colors[index],
-            fontSize: 12
           }
         })
         this.setState({data: res.data.data, firstLoad: false})
@@ -69,7 +68,7 @@ class Car extends Component {
             normal: {
               show: true,
               textStyle: {
-                fontSize: 12
+                fontSize: ECHARTS_FONT_SIZE
               },
             }
           },

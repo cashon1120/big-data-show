@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactEcharts from 'echarts-for-react'
 import Wrapper from './Wrapper'
 import axios from '../utils/request'
-import {apiUrl, duration} from '../config/index'
+import {apiUrl, duration, echartsConfig} from '../config/index'
 
 class Car extends Component {
   constructor(props) {
@@ -73,36 +73,13 @@ class Car extends Component {
             width: 1
           }
         },
-        axisLabel: {
-          textStyle: {
-            color: '#189CBF',
-            fontSize: 12
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#174e71'
-          }
-        }
+        axisLabel: echartsConfig.axisLabel,
+        splitLine: echartsConfig.splitLine
       },
       yAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#174e71',
-            width: 1
-          }
-        },
-        axisLabel: {
-          textStyle: {
-            color: '#189CBF',
-            fontSize: 12
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#174e71'
-          }
-        },
+        axisLine: echartsConfig.axisLine,
+        axisLabel: echartsConfig.axisLabel,
+        splitLine: echartsConfig.splitLine,
         type: 'value'
       },
       series: [
