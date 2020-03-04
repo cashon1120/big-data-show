@@ -1,10 +1,12 @@
-import React, {Component} from 'react'
-import ReactEcharts from 'echarts-for-react'
+import ReactEchartsCore from 'echarts-for-react/lib/core'
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/component/tooltip';
 import Wrapper from './Wrapper'
 import axios from '../utils/request'
 import {apiUrl, duration, echartsConfig} from '../config/index'
-
-class Car extends Component {
+const React = require('react')
+class Car extends React.Component {
   constructor(props) {
     super()
     this.state = {
@@ -96,7 +98,7 @@ class Car extends Component {
 
   render() {
     return <Wrapper title="24小时报警统计" height='20vh' firstLoad={this.state.firstLoad}>
-      <ReactEcharts option={this.getOption()}/>
+      <ReactEchartsCore echarts={echarts} option={this.getOption()}/>
   </Wrapper>
   }
 }

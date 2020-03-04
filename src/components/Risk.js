@@ -1,10 +1,13 @@
-import React, {Component} from 'react'
 import Wrapper from './Wrapper'
-import ReactEcharts from 'echarts-for-react'
+import ReactEchartsCore from 'echarts-for-react/lib/core'
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/tooltip';
 import axios from '../utils/request'
+// import AMap from 'AMAP'
 import {apiUrl, duration, echartsConfig} from '../config/index'
-
-class Risk extends Component {
+const React = require('react')
+class Risk extends React.Component {
   constructor(props) {
     super()
     this.state = {
@@ -130,7 +133,7 @@ class Risk extends Component {
 
   render() {
     return <Wrapper title="风险趋势" height='21.2vh' firstLoad={this.state.firstLoad}>
-      <ReactEcharts option={this.getOption()}/>
+      <ReactEchartsCore echarts={echarts} option={this.getOption()}/>
     </Wrapper>
   }
 }

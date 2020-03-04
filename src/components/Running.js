@@ -1,9 +1,8 @@
-import React, {Component} from 'react'
 import Wrapper from './Wrapper'
 import axios from '../utils/request'
 import {apiUrl, duration} from '../config/index'
-
-class Running extends Component {
+const React = require('react')
+class Running extends React.Component {
   constructor(props) {
     super()
     this.state = {

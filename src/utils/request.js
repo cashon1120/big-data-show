@@ -16,8 +16,8 @@ axios.interceptors.request.use(config => {
 
 // 配置响应拦截器 
 axios.interceptors.response.use(res => {
-  if (!res.data.code === '000') {
-    return false;
+  if (res.data.code !== '000') {
+    return Promise.reject('服务端出错');
   };
   return Promise.resolve(res);
 }, error => {

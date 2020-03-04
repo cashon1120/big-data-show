@@ -1,10 +1,14 @@
-import React, {Component} from 'react'
-import ReactEcharts from 'echarts-for-react'
+import ReactEchartsCore from 'echarts-for-react/lib/core'
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/component/tooltip';
 import Wrapper from './Wrapper'
 import axios from '../utils/request'
 import {apiUrl, duration, echartsConfig} from '../config/index'
 
-class Speed extends Component {
+const React = require('react')
+
+class Speed extends React.Component {
   constructor(props) {
     super()
     this.state = {
@@ -24,7 +28,6 @@ class Speed extends Component {
         const result = res.data.data
         const data = []
         result.forEach((item, index) => {
-          //data.push(item['数量'])
           data.push(index)
         })
         this.setState({data,firstLoad: false})
@@ -80,7 +83,7 @@ class Speed extends Component {
   }
   render() {
     return <Wrapper title="速度统计" height='22vh' firstLoad={this.state.firstLoad}>
-      <ReactEcharts option={this.getOption()}/>
+      <ReactEchartsCore echarts={echarts} option={this.getOption()}/>
     </Wrapper>
   }
 }

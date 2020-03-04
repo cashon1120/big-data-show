@@ -1,11 +1,13 @@
-import React, {Component} from 'react'
-import ReactEcharts from 'echarts-for-react'
+import ReactEchartsCore from 'echarts-for-react/lib/core'
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/tooltip';
 import axios from '../utils/request'
 import {apiUrl, duration, ECHARTS_FONT_SIZE} from '../config/index'
 
 import Wrapper from './Wrapper'
-
-class Car extends Component {
+const React = require('react')
+class Car extends React.Component {
   constructor(props) {
     super()
     this.state = {
@@ -81,7 +83,7 @@ class Car extends Component {
 
   render() {
     return <Wrapper title="主动安全占比" height='20vh' firstLoad={this.state.firstLoad}>
-      <ReactEcharts option={this.getOption()}/>
+      <ReactEchartsCore echarts={echarts} option={this.getOption()}/>
     </Wrapper>
   }
 }

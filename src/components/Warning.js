@@ -1,9 +1,8 @@
-import React, {Component} from 'react'
 import Wrapper from './Wrapper'
 import axios from '../utils/request'
 import {apiUrl, duration} from '../config/index'
-
-class Warning extends Component {
+const React = require('react')
+class Warning extends React.Component {
   constructor(props) {
     super()
     this.state = {
@@ -44,7 +43,7 @@ class Warning extends Component {
           <div>报警种类</div>
         </div>
         <ul>
-          {data.map((item, index) => <li className="table-tr" key={index}>
+          {(data || []).map((item, index) => <li className="table-tr" key={index}>
             <div>{item['时间']}</div>
             <div>{item['速度']}</div>
             <div>{item['车牌号']}</div>
